@@ -79,7 +79,7 @@ class Lockdown extends React.Component {
     }
     
     setURL(newurl) {
-        if (newurl.startswith('http://')) {
+        if (newurl.startsWith('http://')) {
             alert("Only HTTPS URLs are allowed");
             return;
         }
