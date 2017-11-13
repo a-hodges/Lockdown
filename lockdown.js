@@ -121,6 +121,6 @@ class Lockdown extends React.Component {
 }
 
 ReactDOM.render(
-    <Lockdown url="example.com" duration={120} />,
+    <Lockdown url="https://example.com" duration={120} />,
     document.getElementById('root')
 );
