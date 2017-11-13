@@ -59,11 +59,11 @@ class Lockdown extends React.Component {
         this.state = {
             time: props.duration,
         };
-        this.setURL(props.url);
     }
 
     componentDidMount() {
         this.timerID = setInterval(() => this.tick(), 1000);
+        this.setURL(this.props.url);
     }
 
     componentWillUnmount() {
