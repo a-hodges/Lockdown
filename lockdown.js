@@ -78,7 +78,7 @@ class Lockdown extends React.Component {
             }));
         }
     }
-    
+
     setURL(newurl) {
         if (newurl.startsWith('http://')) {
             alert("Only HTTPS URLs are allowed");
@@ -91,7 +91,7 @@ class Lockdown extends React.Component {
             url: newurl,
         }));
     }
-    
+
     render() {
         let view;
         if (this.state.time > 0) {
