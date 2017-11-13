@@ -58,6 +58,7 @@ class Lockdown extends React.Component {
         this.setURL = this.setURL.bind(this);
         this.state = {
             time: props.duration,
+            url: props.url,
         };
     }
 
