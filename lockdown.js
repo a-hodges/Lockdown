@@ -57,9 +57,9 @@ class Lockdown extends React.Component {
         super(props);
         this.setURL = this.setURL.bind(this);
         this.state = {
-            url: props.url,
             time: props.duration,
         };
+        this.seturl(props.url);
     }
 
     componentDidMount() {
@@ -79,6 +79,13 @@ class Lockdown extends React.Component {
     }
     
     setURL(newurl) {
+        if (newurl.startswith('http://')) {
+            alert("Only HTTPS URLs are allowed");
+            return;
+        }
+        if (!newurl.startsWith('https://')) {
+            newurl = 'https://' + newurl;
+        }
         this.setState((prevState, props) => ({
             url: newurl,
         }));
@@ -113,6 +120,6 @@ class Lockdown extends React.Component {
 }
 
 ReactDOM.render(
-    <Lockdown url="http://example.com" duration={120} />,
+    <Lockdown url="example.com" duration={120} />,
     document.getElementById('root')
 );
