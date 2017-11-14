@@ -1,15 +1,22 @@
+function timeString(time) {
+    if (time >= 60) {
+        let s = Math.trunc(time / 60) + "m";
+        const remainder = time % 60;
+        if (remainder) {
+            s += " " + remainder + "s"
+        }
+        return s;
+    }
+    else {
+        return time + "s";
+    }
+}
+
 class Time extends React.Component {
     render() {
-        let f;
-        if (this.props.time >= 60) {
-            f = Math.trunc(this.props.time / 60) + "m " + (this.props.time % 60) + "s";
-        }
-        else {
-            f = this.props.time + "s";
-        }
         return (
             <div>
-                <h1>Time left: {f}</h1>
+                <h2>Time left: {timeString(this.props.time)}</h2>
             </div>
         );
     }
@@ -103,16 +110,11 @@ class Lockdown extends React.Component {
             )
         }
         else {
-            view = (
-                <div style={{color: "red"}}>
-                    <p>Time's up! Get back to work!</p>
-                </div>
-            )
+            view = <p style={{color: "red"}}>Out of time! Get back to work!</p>
         }
 
         return (
             <div>
-                <h1>Lockdown Browser</h1>
                 <Time time={this.state.time} />
                 {view}
             </div>
@@ -120,7 +122,62 @@ class Lockdown extends React.Component {
     }
 }
 
+class ChooseTimer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.chosen = this.chosen.bind(this);
+    }
+
+    chosen(e) {
+        this.props.callback(e.target.value);
+    }
+
+    render() {
+        const times = this.props.times.map((time) =>
+            <option value={time} key={time}>{timeString(time)}</option>
+        );
+        return (
+            <div>
+                <h2>How long do you want to browse?</h2>
+                <select onChange={this.chosen}>
+                    <option></option>
+                    {times}
+                </select>
+            </div>
+        )
+    }
+}
+
+class LockdownParent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.setDuration = this.setDuration.bind(this);
+        this.state = {duration: null};
+    }
+
+    setDuration(d) {
+        this.setState((prevState, props) => ({duration: d}));
+    }
+
+    render() {
+        let page;
+        if (this.state.duration !== null) {
+            page = <Lockdown url="https://example.com" duration={this.state.duration} />
+        }
+        else {
+            page = <ChooseTimer times={[60, 120, 300, 600, 900]} callback={this.setDuration} />
+        }
+
+        return (
+            <div>
+                <h1>Lockdown Browser</h1>
+                {page}
+            </div>
+        )
+    }
+}
+
 ReactDOM.render(
-    <Lockdown url="https://example.com" duration={120} />,
+    <LockdownParent />,
     document.getElementById('root')
 );
