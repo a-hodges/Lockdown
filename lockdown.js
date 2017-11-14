@@ -168,12 +168,7 @@ class LockdownParent extends React.Component {
             page = <ChooseTimer times={[60, 120, 300, 600, 900]} callback={this.setDuration} />
         }
 
-        return (
-            <div>
-                <h1>Lockdown Browser</h1>
-                {page}
-            </div>
-        )
+        return page;
     }
 }
 
