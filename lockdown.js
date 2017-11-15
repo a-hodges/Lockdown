@@ -162,7 +162,7 @@ class LockdownParent extends React.Component {
     render() {
         let page;
         if (this.state.duration !== null) {
-            page = <Lockdown url="https://example.com" duration={this.state.duration} />
+            page = <Lockdown url="https://wikipedia.org" duration={this.state.duration} />
         }
         else {
             page = <ChooseTimer times={[60, 120, 300, 600, 900]} callback={this.setDuration} />
